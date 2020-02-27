@@ -14,20 +14,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Deposits() {
+export default function CallerInfo() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Recent Deposits</Title>
-      <Typography component="p" variant="h4">
-        $3,024.00
+      <Title>Patient Information</Title>
+      <Typography color="textPrimary">
+        Name: Alex H
       </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
-        on 15 March, 2019
+      <Typography>
+        Contact No.: 510 123 4567
+      </Typography>
+      <Typography color="textPrimary" className={classes.depositContext}>
+        Drug Allergies: Tetracycline
       </Typography>
       <div>
         <Link color="primary" href="#" onClick={preventDefault}>
-          View balance
+          View more details
         </Link>
       </div>
     </React.Fragment>
