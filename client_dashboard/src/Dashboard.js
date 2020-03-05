@@ -23,6 +23,9 @@ import { ChatFeed, Message } from 'react-chat-ui';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import Chart from './Chart';
 import CallerInfo from './CallerInfo';
+
+// firebase API
+import firebase from './config/Firebase';
 //import Orders from './Orders';
 
 function Copyright() {
@@ -141,6 +144,29 @@ export default function Dashboard() {
       }), // Gray bubble
       new Message({ id: 0, message: "What is the current situation?" }), // Blue bubble
     ]
+  };
+
+  const [alarm, setAlarm] = React.useState(false);
+  // Initialize with listening to our
+    // messages collection. The second argument
+    // with the empty array makes sure the
+    // function only executes once
+  useEffect(() => {
+    listenForAlarm();
+  }, []);
+
+
+  // Use firestore to listen for changes within
+  // our newly created collection
+  const listenForAlarm = () => {
+      firebase.firestore().collection('alarm')
+      .doc('alarm').get().then(function (doc) {
+        if (doc.exists) {
+          setAlarm(doc.data());
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      });
   };
 
   /* Hardcode map details */
