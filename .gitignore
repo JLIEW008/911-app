@@ -9,7 +9,7 @@ node_modules/
 coverage/
 
 # configs
-/src/config
+/client_dashboard/src/config
 
 # production
 build/
