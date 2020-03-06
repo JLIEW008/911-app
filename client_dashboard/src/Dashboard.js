@@ -171,10 +171,10 @@ export default function Dashboard() {
   /* Hardcode map details */
   const MyMapComponent = withScriptjs(withGoogleMap((props) =>
     <GoogleMap
-      defaultZoom={8}
-      defaultCenter={{ lat: -34.397, lng: 150.644 }}
+      defaultZoom={12}
+      defaultCenter={{ lat: 37.8719, lng: -122.2585 }}
     >
-      {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
+      {props.isMarkerShown && <Marker position={{ lat: 37.8715, lng: -122.2730 }} />}
     </GoogleMap>
   ));
 
