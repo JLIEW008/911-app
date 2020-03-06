@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,10 +23,11 @@ import { ChatFeed, Message } from 'react-chat-ui';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import Chart from './Chart';
 import CallerInfo from './CallerInfo';
+import AlertInfo from './AlertInfo';
 
 // firebase API
-import firebase from './config/Firebase';
-//import Orders from './Orders';
+import firebase from './config/firebase';
+
 
 function Copyright() {
   return (
@@ -123,8 +124,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Dashboard() {
-
-
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -167,7 +166,7 @@ export default function Dashboard() {
       }).catch(function (error) {
         console.log("Error getting document:", error);
       });
-  };
+  }
 
   /* Hardcode map details */
   const MyMapComponent = withScriptjs(withGoogleMap((props) =>
@@ -250,8 +249,13 @@ export default function Dashboard() {
                 />
               </Paper>
             </Grid>
-            {/* Chat - Bottom right */}
+            {/* IOT devices - Bottom right */}
             <Grid item xs={12} md={5} lg={6}>
+              <AlertInfo/>
+            </Grid>
+
+            {/* Chat - Bottom right */}
+            {/*}<Grid item xs={12} md={5} lg={6}>
               <Paper className={fixedHeightPaper}>
                 <ChatFeed
                   messages={state.messages} // Boolean: list of message objects
@@ -274,6 +278,7 @@ export default function Dashboard() {
                   />
               </Paper>
             </Grid>
+            */}
           </Grid>
           <Box pt={4}>
             <Copyright />
