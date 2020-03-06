@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -33,6 +33,33 @@ const useStyles = makeStyles(theme => ({
 
 export default function Orders() {
   const classes = useStyles();
+
+  const [alerts, setAlerts] = useState(null);
+  // Initialize with listening to our
+    // messages collection. The second argument
+    // with the empty array makes sure the
+    // function only executes once
+    useEffect(() => {
+      listenForAlers();
+  }, []);
+
+
+  // Use firestore to listen for changes within
+  // our newly created collection
+  const listenForAlerts = () => {
+      const unixTime = new Date().getUnixTime();
+      firebase.firestore().collection('adventures').where("unixTime", ">", unixTime).orderBy("unixTime")
+          .onSnapshot((snapshot) => {
+              // Loop through the snapshot and collect
+              // the necessary info we need. Then push
+              // it into our array
+              const allAlerts = [];
+              snapshot.forEach((doc) => allAlerts.push(doc.data()));
+
+              // Set the collected array as our state
+              setAlerts(allAlerts);
+          }, (error) => console.error(error));
+  };
   return (
     <React.Fragment>
       <Title>Current Alerts</Title>
