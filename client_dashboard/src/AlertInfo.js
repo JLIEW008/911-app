@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -33,6 +33,33 @@ const useStyles = makeStyles(theme => ({
 
 export default function Orders() {
   const classes = useStyles();
+
+  const [alerts, setAlerts] = useState(null);
+  // Initialize with listening to our
+    // messages collection. The second argument
+    // with the empty array makes sure the
+    // function only executes once
+    useEffect(() => {
+      listenForAlerts();
+  }, []);
+
+
+  // Use firestore to listen for changes within
+  // our newly created collection
+  const listenForAlerts = () => {
+      const unixTime = new Date().getUnixTime();
+      firebase.firestore().collection('alarms')
+          .onSnapshot((snapshot) => {
+              // Loop through the snapshot and collect
+              // the necessary info we need. Then push
+              // it into our array
+              const allAlerts = [];
+              snapshot.forEach((doc) => allAlerts.push(doc.data()));
+
+              // Set the collected array as our state
+              setAlerts(allAlerts);
+          }, (error) => console.error(error));
+  };
   return (
     <React.Fragment>
       <Title>Current Alerts</Title>
@@ -47,13 +74,13 @@ export default function Orders() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.row}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.time}</TableCell>
-              <TableCell>{row.id}</TableCell>
-              <TableCell>{row.location}</TableCell>
-              <TableCell>{row.type}</TableCell>
+          {alerts.map(alert => (
+            <TableRow key={alert.row}>
+              <TableCell>{alert.date}</TableCell>
+              <TableCell>{alert.time}</TableCell>
+              <TableCell>{alert.id}</TableCell>
+              <TableCell>{alert.location}</TableCell>
+              <TableCell>{alert.type}</TableCell>
             </TableRow>
           ))}
         </TableBody>
