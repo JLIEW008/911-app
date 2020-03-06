@@ -75,7 +75,7 @@ export default function Orders() {
         </TableHead>
         <TableBody>
           {alerts.map(alert => (
-            <TableRow key={alert.id}>
+            <TableRow key={alert.row}>
               <TableCell>{alert.date}</TableCell>
               <TableCell>{alert.time}</TableCell>
               <TableCell>{alert.id}</TableCell>
