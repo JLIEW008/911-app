@@ -6,22 +6,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
 import Title from './Title';
 
 import firebase from './config/firebase';
-
-// Generate Order Data
-function createData(row, date, time, id, location, type) {
-  return { row, date, time, id, location, type };
-}
-
-// const rows = [
-//   createData(0, '16 Mar, 2019', '16:00:24', '75849603', 'Tupelo, MS', 'Fire'),
-//   createData(1, '16 Mar, 2019', '15:56:09', '85937284', 'London, UK', 'Chemical Spill'),
-//   createData(2, '16 Mar, 2019', '13:44:59', '19205847', 'Boston, MA', 'Fire'),
-//   createData(3, '16 Mar, 2019', '10:20:10', '49503854', 'Gary, IN', 'Medical Emergency'),
-//   createData(4, '16 Mar, 2019', '08:46:36', '34845933', 'Long Branch, NJ', 'Medical Emergency'),
-// ];
 
 function preventDefault(event) {
   event.preventDefault();
@@ -29,11 +17,11 @@ function preventDefault(event) {
 
 const useStyles = makeStyles(theme => ({
   seeMore: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
   },
 }));
 
-export default function Orders() {
+export default function AlertInfo() {
   const classes = useStyles();
 
   const [alerts, setAlerts] = useState(null);
@@ -49,7 +37,7 @@ export default function Orders() {
   // Use firestore to listen for changes within
   // our newly created collection
   const listenForAlerts = () => {
-      firebase.firestore().collection('alarms')
+      firebase.firestore().collection('alerts')
           .onSnapshot((snapshot) => {
               // Loop through the snapshot and collect
               // the necessary info we need. Then push
@@ -71,13 +59,12 @@ export default function Orders() {
 }
   return (
     <React.Fragment>
-      <Title>Current Alerts</Title>
+      <Title>Active Alerts</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>
             <TableCell>Time</TableCell>
-            <TableCell>Id</TableCell>
             <TableCell>Location</TableCell>
             <TableCell>Emergency Type</TableCell>
           </TableRow>
@@ -87,18 +74,12 @@ export default function Orders() {
             <TableRow key={alert.row}>
               <TableCell>{alert.date}</TableCell>
               <TableCell>{alert.time}</TableCell>
-              <TableCell>{alert.id}</TableCell>
               <TableCell>{alert.location}</TableCell>
-              <TableCell>{alert.type}</TableCell>
+              <TableCell align="center">{alert.type}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more Emergencies
-        </Link>
-      </div>
     </React.Fragment>
   );
 }

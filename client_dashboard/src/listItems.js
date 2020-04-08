@@ -12,31 +12,25 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <ListItem button component="a" href="/">
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItem>
-    <ListItem button>
+    <ListItem button component="a" href="/">
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Manpower" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component="a" href="/">
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Statistics" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component="a" href="/">
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
@@ -48,23 +42,23 @@ export const mainListItems = (
 export const secondaryListItems = (
   <div>
     <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
+    <ListItem button component="a" href="/">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Current month" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component="a" href="/">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Last quarter" />
     </ListItem>
-    <ListItem button>
+    <ListItem button component="a" href="/">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="Last year" />
     </ListItem>
   </div>
 );
