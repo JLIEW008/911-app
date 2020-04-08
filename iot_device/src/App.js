@@ -3,8 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 
-import firebase from './config/firebase';
-import apiKey from './config/mapsAPI';
+import { config, firebase } from './config/firebase';
 
 // const rows = [
 //   createData(0, '16 Mar, 2019', '16:00:24', '75849603', 'Tupelo, MS', 'Fire'),
@@ -48,7 +47,7 @@ function App() {
         post();
       }
     }
-    xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&key="+apiKey, true);
+    xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&key="+config.apiKey, true);
     xhttp.send();
   }
 
