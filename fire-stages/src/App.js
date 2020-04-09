@@ -1,7 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
+
+
 import FireHome from './containers/FireHome';
-import './App.css';
+import FiremenIoT from './containers/FiremenIoT';
 
 function App() {
   return (
@@ -10,11 +12,10 @@ function App() {
       <Switch>
         {/* <PrivateRoute path="/vendorForm" component={Post} /> */}
         <Route path="/" exact component={FireHome} />
+        <Route path="/:id" exact component={FiremenIoT} />
+        <Redirect from="/redirect" to="/" />
         {/* <Route path="/adventures" exact component={Adventures} />
-        <Route path="/adventures/:id" exact component={Adventure} />
         <Route path="/login" exact component={LogIn} /> */}
-        {/* <Redirect from="/redirect" to="/adventures" />
-        <Redirect from="*" to="/" /> */}
       </Switch>
     </div>
     </BrowserRouter>
