@@ -11,7 +11,7 @@ import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
 import { config } from './config/firebase';
-
+// Hard links used, switch to routing in future
 export const mainListItems = (
   <div>
     <BrowserRouter>

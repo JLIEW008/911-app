@@ -52,7 +52,7 @@ export default function Map() {
   // Use firestore to listen for changes within
   // our newly created collection
   const listenForAlerts = () => {
-      firebase.firestore().collection('alerts')
+      firebase.firestore().collection('iot_updates')
           .onSnapshot((snapshot) => {
               // Loop through the snapshot and collect
               // the necessary info we need. Then push
@@ -62,7 +62,7 @@ export default function Map() {
 
               // Categorise according to alert type
               const categorised_alerts = categorise_alerts(allAlerts);
-
+              console.log(categorised_alerts);
               // Set the collected array as our state
               setAlerts(categorised_alerts);
           }, (error) => console.error(error));

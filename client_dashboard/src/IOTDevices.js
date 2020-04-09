@@ -25,6 +25,7 @@ import CallerInfo from './CallerInfo';
 import AlertInfo from './AlertInfo';
 import Map from './Map';
 import CustomPopover from './CustomPopover';
+import IOTDevicesList from './IOTDevicesList'
 
 // firebase API
 import { firebase } from './config/firebase';
@@ -110,7 +111,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(1),
+    paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
   paper: {
@@ -124,7 +125,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Dashboard() {
+export default function IOTDevices() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -176,18 +177,11 @@ export default function Dashboard() {
       </Drawer>
 
       <main className={classes.content}>
-        //<div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* left  - Map */}
-            <Grid item xs={12} md={5} lg={6}>
-              <Paper className={classes.paper}>
-                <Map/>
-              </Paper>
-            </Grid>
             {/* right - List of emergencies */}
-            <Grid item xs={12} md={5} lg={6}>
-              <AlertInfo/>
+            <Grid item xs={12} md={5} lg={12}>
+              <IOTDevicesList/>
             </Grid>
           </Grid>
           <Box pt={4}>

@@ -10,7 +10,6 @@ import TablePagination from '@material-ui/core/TablePagination';
 import Title from './Title';
 
 import firebase from './config/firebase';
-import { getTime, getDate } from './Util.js'
 
 function preventDefault(event) {
   event.preventDefault();
@@ -25,72 +24,59 @@ const useStyles = makeStyles(theme => ({
 export default function AlertInfo() {
   const classes = useStyles();
 
-  const [alerts, setAlerts] = useState(null);
+  const [allDevices, setDevices] = useState(null);
   // Initialize with listening to our
     // messages collection. The second argument
     // with the empty array makes sure the
     // function only executes once
     useEffect(() => {
-      listenForAlerts();
+      listenForNewDevices();
   }, []);
 
 
   // Use firestore to listen for changes within
   // our newly created collection
-  const listenForAlerts = () => {
-      firebase.firestore().collection('iot_updates')
+  const listenForNewDevices = () => {
+      firebase.firestore().collection('iot_devices')
           .onSnapshot((snapshot) => {
               // Loop through the snapshot and collect
               // the necessary info we need. Then push
               // it into our array
-              const allAlerts = [];
-              snapshot.forEach((doc) => allAlerts.push(doc.data()));
-
-              for (let i = 0; i < allAlerts.length; ++i) {
-                var t = new Date(1970, 0, 1); // Epoch
-                t.setSeconds(allAlerts[i].timestamp.seconds);
-                allAlerts[i].time = getTime(t);
-                allAlerts[i].date = getDate(t);
-                allAlerts[i].t = t;
-              }
-
-              allAlerts.sort(function(a, b) {
-                if (a.t > b.t) return -1;
-                if (a.t < b.t) return 1;
-                return 0;
+              const allDevices = [];
+              snapshot.forEach((doc) => {
+                allDevices.push(doc.data())
               });
 
               // Set the collected array as our state
-              setAlerts(allAlerts);
+              setDevices(allDevices);
           }, (error) => console.error(error));
   };
 
-  if (!alerts) {
+  if (!allDevices) {
     return (
         <div>
             Loading...
       </div>
     )
-}
+  }
+
   return (
     <React.Fragment>
       <Title>Active Alerts</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Time</TableCell>
+            <TableCell>Device ID</TableCell>
             <TableCell>Location</TableCell>
-            <TableCell>Emergency Type</TableCell>
+            <TableCell>Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {alerts.map(alert => (
-            <TableRow key={alert.row}>
-              <TableCell>{alert.date}</TableCell>
-              <TableCell>{alert.time}</TableCell>
-              <TableCell>{alert.location}</TableCell>
-              <TableCell align="center">{alert.type}</TableCell>
+          {allDevices.map(device => (
+            <TableRow key={device.id}>
+              <TableCell>{device.id}</TableCell>
+              <TableCell>{device.location}</TableCell>
+              <TableCell>{device.status}</TableCell>
             </TableRow>
           ))}
         </TableBody>

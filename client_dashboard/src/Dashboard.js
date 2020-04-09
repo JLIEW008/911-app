@@ -110,7 +110,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto',
   },
   container: {
-    paddingTop: theme.spacing(1),
+    paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(4),
   },
   paper: {
@@ -176,7 +176,6 @@ export default function Dashboard() {
       </Drawer>
 
       <main className={classes.content}>
-        //<div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* left  - Map */}
