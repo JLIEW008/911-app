@@ -19,10 +19,12 @@ function App() {
   let longitude = 0;
   let hrate = 0;
   let btemp = 0;
+  let pid = 0;
 
   const handleClick = () => {
     hrate = document.getElementById("hrate").value;
     btemp = document.getElementById("btemp").value;
+    pid = document.getElementById("pid").value;
     getLocation();
   }
 
@@ -60,7 +62,8 @@ function App() {
       lat: latitude,
       lng: longitude,
       btemp: btemp,
-      hrate: hrate
+      hrate: hrate,
+      pid: pid
     }).then(function (docRef) {
       console.log("Document written with ID: ", docRef.id);
     }
@@ -70,6 +73,9 @@ function App() {
   return (
     <div className="App">
       <form action="/action_page.php">
+        <label for="pid">Personnel ID: </label>
+        <input type="number" id="pid" name="pid" ></input>
+        <br></br><br></br>
         <label for="hrate">Heart rate: </label>
         <input type="number" id="hrate" name="hrate" ></input>
         <br></br><br></br>
