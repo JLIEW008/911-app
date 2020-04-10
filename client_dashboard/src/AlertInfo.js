@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import Title from './Title';
 
-import firebase from './config/firebase';
+import { firebase, config } from './config/firebase';
 import { getTime, getDate } from './Util.js'
 
 function preventDefault(event) {
@@ -19,6 +19,9 @@ function preventDefault(event) {
 const useStyles = makeStyles(theme => ({
   seeMore: {
     marginTop: theme.spacing(1),
+  },
+  buttonLink: {
+    textDecoration: 'none',
   },
 }));
 
@@ -86,7 +89,7 @@ export default function AlertInfo() {
         </TableHead>
         <TableBody>
           {alerts.map(alert => (
-            <TableRow key={alert.row}>
+            <TableRow button className={classes.buttonLink} component="a" href={config["secLink"]}>
               <TableCell>{alert.date}</TableCell>
               <TableCell>{alert.time}</TableCell>
               <TableCell>{alert.location}</TableCell>
