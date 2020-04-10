@@ -20,11 +20,15 @@ function App() {
   let hrate = 0;
   let btemp = 0;
   let pid = 0;
+  let task = "";
+  let fatigue = "0%";
 
   const handleClick = () => {
     hrate = document.getElementById("hrate").value;
     btemp = document.getElementById("btemp").value;
     pid = document.getElementById("pid").value;
+    task = document.getElementById("task").value;
+    fatigue = document.getElementById("fatigue").value;
     getLocation();
   }
 
@@ -43,47 +47,53 @@ function App() {
     post();
   }
 
-  // function reverseGeocoding() {
-  //   var xhttp = new XMLHttpRequest();
-  //   xhttp.onreadystatechange = function () {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       address = JSON.parse(this.responseText).results[0].formatted_address;
-  //       post();
-  //     }
-  //   }
-  //   xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng="+latitude+","+longitude+"&key="+config.apiKey, true);
-  //   xhttp.send();
-  // }
-
   function post() {
     const db = firebase.firestore();
-    db.collection("firemen_updates").add({
+    db.collection("firemen_IoT").doc(pid).set({
       timestamp: new Date(),
       lat: latitude,
       lng: longitude,
-      btemp: btemp,
-      hrate: hrate,
-      pid: pid
+      temperature: btemp,
+      heartrate: hrate,
+      fatigue: fatigue,
+      task: task
     }).then(function (docRef) {
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Document written with ID: ");
     }
     );
   }
 
   return (
     <div className="App">
-      <form action="/action_page.php">
-        <label for="pid">Personnel ID: </label>
-        <input type="number" id="pid" name="pid" ></input>
+        <label for="pid">Personnel: </label>
+        <select id="pid">
+          <option value="FDkK3y183wyUnDkNxVTT">John Terry</option>
+          <option value="aWojEljeS5lCH6ilFa5m">Sean Lee</option>
+          <option value="eFaAxSrwbf9S3FDBfAh3">Tom Cruise</option>
+  =     </select>
+
+        <br></br><br></br>
+        <label for="task">Task: </label>
+        <select id="task">
+          <option value="Water Hose 1">Water Hose 1</option>
+          <option value="Water Hose 2">Water Hose 2</option>
+          <option value="Enter building">Enter building</option>
+  =     </select>
+
         <br></br><br></br>
         <label for="hrate">Heart rate: </label>
-        <input type="number" id="hrate" name="hrate" ></input>
+        <input type="text" id="hrate" name="hrate" ></input>
+
         <br></br><br></br>
         <label for="btemp">Body temperature: </label>
-        <input type="number" id="btemp" name="btemp"></input>
-      </form>
+        <input type="text" id="btemp" name="btemp"></input>
+
+        <br></br><br></br>
+        <label for="fatigue">Fatigue Level: </label>
+        <input type="text" id="fatigue" name="fatigue"></input>
       <br></br>
       <br></br>
+
       <Button variant="primary" onClick={handleClick}>Send Updates</Button>
     </div>
   );
