@@ -10,6 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import Title from './Title';
 
 import firebase from './config/firebase';
+import IOTDataPopover from './IOTDataPopover';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -77,6 +78,7 @@ export default function AlertInfo() {
               <TableCell>{device.id}</TableCell>
               <TableCell>{device.location}</TableCell>
               <TableCell>{device.status}</TableCell>
+              <IOTDataPopover deviceId={device.id} />
             </TableRow>
           ))}
         </TableBody>

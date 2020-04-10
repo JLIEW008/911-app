@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Button from 'react-bootstrap/Button';
@@ -13,7 +13,30 @@ import { config, firebase } from './config/firebase';
 //   createData(4, '16 Mar, 2019', '08:46:36', '34845933', 'Long Branch, NJ', 'Medical Emergency'),
 // ];
 
+function postPeriodicData(deviceid) {
+  const db = firebase.firestore();
+  db.collection("iot_devices/" + deviceid + '/vals').add({
+    timestamp: new Date(),
+    val: 50 + Math.round(Math.random() * 10)
+  }).then(function (docRef) {
+    console.log("Document written with ID: ", docRef.id);
+  }
+  );
+}
+
+setInterval(postPeriodicData, 1000);
+
 function App() {
+  const deviceid = 'LDaic41udagJ3E15wTIC'
+
+  // Feed data every second
+  useEffect(() => {
+  const interval = setInterval(() => {
+    postPeriodicData(deviceid);
+  }, 1000);
+  return () => clearInterval(interval);
+  }, []);
+
 
   let latitude = 0;
   let longitude = 0;

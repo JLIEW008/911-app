@@ -20,7 +20,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems, secondaryListItems } from './listItems';
 import { ChatFeed, Message } from 'react-chat-ui';
 import { StaticGoogleMap, Marker } from 'react-static-google-map';
-import Chart from './Chart';
 import CallerInfo from './CallerInfo';
 import AlertInfo from './AlertInfo';
 import Map from './Map';
@@ -125,7 +124,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function IOTDevices() {
+export default function IOTDevices(deviceId) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
