@@ -8,29 +8,29 @@ function categorise_alerts(allAlerts) {
   const categorised_alerts = []
 
   for (let i = 0; i < allAlerts.length; ++i) {
-    if (allAlerts[i].type === "Fire") {
+    if (allAlerts[i].task === "Leader") {
+      categorised_alerts.push({
+        location : allAlerts[i].lat + "," + allAlerts[i].lng,
+        color : "green",
+        label : "L"
+      });
+    } else if (allAlerts[i].task === "Fire") {
       categorised_alerts.push({
         location : allAlerts[i].lat + "," + allAlerts[i].lng,
         color : "red",
         label : "F"
       });
-    } else if (allAlerts[i].type === "Chemical Spill") {
-      categorised_alerts.push({
-        location : allAlerts[i].lat + "," + allAlerts[i].lng,
-        color : "blue",
-        label : "C"
-      });
-    } else if (allAlerts[i].type === "Accident") {
-      categorised_alerts.push({
-        location : allAlerts[i].lat + "," + allAlerts[i].lng,
-        color : "orange",
-        label : "A"
-      });
+    // } else if (allAlerts[i].type === "Accident") {
+    //   categorised_alerts.push({
+    //     location : allAlerts[i].lat + "," + allAlerts[i].lng,
+    //     color : "orange",
+    //     label : "A"
+    //   });
     } else {
       categorised_alerts.push({
         location : allAlerts[i].lat + "," + allAlerts[i].lng,
-        color : "black",
-        label : "U"
+        color : "blue",
+        label : "M"
       });
     }
   }
@@ -51,7 +51,7 @@ export default function Map() {
   // Use firestore to listen for changes within
   // our newly created collection
   const listenForAlerts = () => {
-      firebase.firestore().collection('iot_updates')
+      firebase.firestore().collection('firemen_IoT')
           .onSnapshot((snapshot) => {
               // Loop through the snapshot and collect
               // the necessary info we need. Then push

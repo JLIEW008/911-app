@@ -147,7 +147,7 @@ export default function FiremenIoT(props) {
       .doc(id).get().then(function (doc) {
         if (doc.exists) {
           // console.log("Document data:", doc.data());
-          console.log("Document data:", doc.data().itinerary);
+          console.log("Document data:", doc.data());
           setFiremenInfo(doc.data());
         } else {
           // doc.data() will be undefined in this case
@@ -226,7 +226,7 @@ export default function FiremenIoT(props) {
               </Grid>
               <Grid item xs={12}>
                 <Paper className={classes.ioTPaper}>
-                  <FiremenAlerts/>
+                  <FiremenAlerts id={id}/>
                 </Paper>
               </Grid>
             </Grid>

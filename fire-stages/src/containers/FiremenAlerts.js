@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function FiremenAlerts() {
+export default function FiremenAlerts(props) {
   const classes = useStyles();
 
   const [alerts, setAlerts] = useState(null);
@@ -33,21 +33,25 @@ export default function FiremenAlerts() {
       listenForAlerts();
   }, []);
 
+  console.log(props.id);
+
 
   // Use firestore to listen for changes within
   // our newly created collection
   const listenForAlerts = () => {
-      firebase.firestore().collection('firemen_IoT')
-          .onSnapshot((snapshot) => {
-              // Loop through the snapshot and collect
-              // the necessary info we need. Then push
-              // it into our array
-              const allAlerts = [];
-              snapshot.forEach((doc) => allAlerts.push(doc.data()));
-
-              // Set the collected array as our state
-              setAlerts(allAlerts);
-          }, (error) => console.error(error));
+    firebase.firestore().collection('firemen_IoT')
+      .doc(props.id).get().then(function (doc) {
+        if (doc.exists) {
+          // console.log("Document data:", doc.data());
+          console.log("Document data:", doc.data());
+          setAlerts(doc.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      });
   };
 
   if (!alerts) {
@@ -59,7 +63,7 @@ export default function FiremenAlerts() {
 }
   return (
     <React.Fragment>
-      <Title>Mission Alerts</Title>
+      <Title>Firemen Data</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -70,14 +74,12 @@ export default function FiremenAlerts() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {alerts.map(alert => (
-            <TableRow key={alert.id}>
-              <TableCell align="center">{alert.temperature}</TableCell>
-              <TableCell align="center">{alert.heartrate}</TableCell>
-              <TableCell align="center">{alert.fatigue}</TableCell>
-              <TableCell align="center">{alert.task}</TableCell>
+            <TableRow key={alerts.id}>
+              <TableCell align="center">{alerts.temperature}</TableCell>
+              <TableCell align="center">{alerts.heartrate}</TableCell>
+              <TableCell align="center">{alerts.fatigue}</TableCell>
+              <TableCell align="center">{alerts.task}</TableCell>
             </TableRow>
-          ))}
         </TableBody>
       </Table>
     </React.Fragment>
