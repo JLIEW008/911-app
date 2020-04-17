@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -20,6 +21,10 @@ const useStyles = makeStyles(theme => ({
   seeMore: {
     marginTop: theme.spacing(1),
   },
+  container: {
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(4)
+  }
 }));
 
 export default function AlertInfo() {
@@ -62,27 +67,29 @@ export default function AlertInfo() {
   }
 
   return (
-    <React.Fragment>
-      <Title>Active Alerts</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Device ID</TableCell>
-            <TableCell>Location</TableCell>
-            <TableCell>Status</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {allDevices.map(device => (
-            <TableRow key={device.id}>
-              <TableCell>{device.id}</TableCell>
-              <TableCell>{device.location}</TableCell>
-              <TableCell>{device.status}</TableCell>
-              <IOTDataPopover deviceId={device.id} />
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </React.Fragment>
+      <Container className={classes.container}>
+        <React.Fragment>
+          <Title>Active Alerts</Title>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Device ID</TableCell>
+                <TableCell>Location</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {allDevices.map(device => (
+                <TableRow key={device.id}>
+                  <TableCell>{device.id}</TableCell>
+                  <TableCell>{device.location}</TableCell>
+                  <TableCell>{device.status}</TableCell>
+                  <IOTDataPopover deviceId={device.id} />
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </React.Fragment>
+      </Container>
   );
 }

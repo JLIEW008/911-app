@@ -24,23 +24,14 @@ import CallerInfo from './CallerInfo';
 import AlertInfo from './AlertInfo';
 import Map from './Map';
 import CustomPopover from './CustomPopover';
+import DashboardItems from './DashboardItems';
+import IOTDevicesList from './IOTDevicesList';
+import History from './History';
 
 // firebase API
 import { firebase } from './config/firebase';
 
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        511 Innovation Engineering
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const drawerWidth = 220;
 
@@ -151,7 +142,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Overview
+            511
           </Typography>
           <CustomPopover/>
         </Toolbar>
@@ -174,25 +165,14 @@ export default function Dashboard() {
         <List>{secondaryListItems}</List>
       </Drawer>
 
-      <main className={classes.content}>
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* left  - Map */}
-            <Grid item xs={12} md={5} lg={6}>
-              <Paper className={classes.paper}>
-                <Map/>
-              </Paper>
-            </Grid>
-            {/* right - List of emergencies */}
-            <Grid item xs={12} md={5} lg={6}>
-              <AlertInfo/>
-            </Grid>
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" component={ DashboardItems } exact />
+          <Route path="/iot-devices" component={ IOTDevicesList } />
+          <Route path="/history/:duration" component={ History } />
+          <Route component={Error}/>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
