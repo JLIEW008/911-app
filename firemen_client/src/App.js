@@ -20,16 +20,45 @@ function App() {
   let hrate = 0;
   let btemp = 0;
   let pid = 0;
+  let pid1 = 0;
+  let pid2 = 0;
   let task = "";
   let fatigue = "0%";
+  let evalulation = "";
+  let report = "";
+  const db = firebase.firestore();
 
   const handleClick = () => {
     hrate = document.getElementById("hrate").value;
     btemp = document.getElementById("btemp").value;
-    pid = document.getElementById("pid").value;
+    pid1 = document.getElementById("pid1").value;
     task = document.getElementById("task").value;
     fatigue = document.getElementById("fatigue").value;
     getLocation();
+  }
+
+  const sendEvaluation = () => {
+    evalulation = document.getElementById("evaluation").value;
+    pid = document.getElementById("pid").value;
+    db.collection("situation").doc(pid).set({
+      timestamp: new Date(),
+      evalulation: evalulation
+    }).then(function (docRef) {
+      console.log("Document written with ID: ");
+    }
+    );
+  }
+
+  const sendReport = () => {
+    evalulation = document.getElementById("report").value;
+    pid2 = document.getElementById("pid2").value;
+    db.collection("post").doc(pid2).set({
+      timestamp: new Date(),
+      evalulation: evalulation
+    }).then(function (docRef) {
+      console.log("Document written with ID: ");
+    }
+    );
   }
 
   function getLocation() {
@@ -48,8 +77,7 @@ function App() {
   }
 
   function post() {
-    const db = firebase.firestore();
-    db.collection("firemen_IoT").doc(pid).set({
+    db.collection("firemen_IoT").doc(pid1).set({
       timestamp: new Date(),
       lat: latitude,
       lng: longitude,
@@ -65,13 +93,28 @@ function App() {
 
   return (
     <div className="App">
+        <center>Firefighter Mock Device - Situation Evaluation</center><br></br>
         <label for="pid">Personnel: </label>
         <select id="pid">
           <option value="FDkK3y183wyUnDkNxVTT">John Terry</option>
           <option value="aWojEljeS5lCH6ilFa5m">Sean Lee</option>
           <option value="eFaAxSrwbf9S3FDBfAh3">Tom Cruise</option>
   =     </select>
+        <br></br><br></br>
+        <textarea id="evaluation" rows="4" cols="75"></textarea>
+        <br></br><br></br>
+        <Button variant="primary" onClick={sendEvaluation}>Send Evaluation</Button>
+        <br></br><br></br>
+        <hr></hr>
 
+        <br></br>
+        <center>Firefighter Mock Device - Firefighting Updates</center><br></br>
+        <label for="pid1">Personnel: </label>
+        <select id="pid1">
+          <option value="FDkK3y183wyUnDkNxVTT">John Terry</option>
+          <option value="aWojEljeS5lCH6ilFa5m">Sean Lee</option>
+          <option value="eFaAxSrwbf9S3FDBfAh3">Tom Cruise</option>
+  =     </select>
         <br></br><br></br>
         <label for="task">Task: </label>
         <select id="task">
@@ -79,22 +122,35 @@ function App() {
           <option value="Water Hose 2">Water Hose 2</option>
           <option value="Enter building">Enter building</option>
   =     </select>
-
         <br></br><br></br>
         <label for="hrate">Heart rate: </label>
         <input type="text" id="hrate" name="hrate" ></input>
-
         <br></br><br></br>
         <label for="btemp">Body temperature: </label>
         <input type="text" id="btemp" name="btemp"></input>
-
         <br></br><br></br>
         <label for="fatigue">Fatigue Level: </label>
         <input type="text" id="fatigue" name="fatigue"></input>
-      <br></br>
-      <br></br>
+        <br></br><br></br>
+        <Button variant="primary" onClick={handleClick}>Send Updates</Button>
+        <br></br><br></br>
+        <hr></hr>
 
-      <Button variant="primary" onClick={handleClick}>Send Updates</Button>
+        <br></br>
+        <center>Firefighter Mock Device - Post Emergency Reports</center><br></br>
+        <label for="pid2">Personnel: </label>
+        <select id="pid2">
+          <option value="FDkK3y183wyUnDkNxVTT">John Terry</option>
+          <option value="aWojEljeS5lCH6ilFa5m">Sean Lee</option>
+          <option value="eFaAxSrwbf9S3FDBfAh3">Tom Cruise</option>
+  =     </select>
+        <br></br><br></br>
+        <textarea id="report" rows="4" cols="75"></textarea>
+        <br></br><br></br>
+        <Button variant="primary" onClick={sendReport}>Send Report</Button>
+        <br></br><br></br>
+        <hr></hr>
+
     </div>
   );
 }
