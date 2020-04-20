@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StaticGoogleMap, Marker } from 'react-static-google-map';
 
-import { firebase, config } from '../config/firebase';
+import { firebase, config } from '../../config/firebase';
 
 
 function categorise_alerts(allAlerts) {
