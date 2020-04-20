@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Map from '../common/Map';
+import LargeMap from './LargeMap';
 import FlowBar from '../common/Flow';
 import AppBar from '../common/AppBar';
 import Copyright from '../common/Copyright';
@@ -65,30 +66,35 @@ export default function Dispatch() {
       <CssBaseline />
       <AppBar name="Dispatch"/>
       <main className={classes.content}>
+        
         <div className={classes.appBarSpacer} />
+
         <Container maxWidth="lg" className={classes.container}>
+        
         <FlowBar type="3"/>
+        
         {/* TODO - Write your code here! */}
-          <Grid container spacing={3}>
+        <Grid container spacing={2}>
             {/* left  - Map */}
-            <Grid item xs={12} md={5} lg={6}>
+            <Grid item xs={12} md={5} lg={8}>
               <Paper className={classes.paper}>
-                <Map/>
+                <LargeMap/>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={5} lg={6}>
+
             {/* right  - mission details */}
-                <Grid item xs={12}>
+            <Grid item xs={12} md={5} lg={4}>
                 <Paper className={classes.paper}>
-                    <p><b> *PLACEHOLDER* </b></p> 
                     <b>List of assets deployed</b>
-                    </Paper>
-                </Grid>
+                </Paper>
             </Grid>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
+
+    
+        <Box pt={4}>
+          <Copyright />
+        </Box>
+
         </Container>
       </main>
     </div>
