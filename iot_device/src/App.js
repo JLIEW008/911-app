@@ -82,7 +82,8 @@ function App() {
       type: type,
       lat: latitude,
       lng: longitude,
-      location: address
+      location: address,
+      stage: "emergency"
     }).then(function (docRef) {
       console.log("Document written with ID: ", docRef.id);
     }

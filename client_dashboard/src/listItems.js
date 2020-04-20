@@ -45,20 +45,20 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button component="a" href="/">
+    <ListSubheader inset>History</ListSubheader>
+    <ListItem button component="a" href={config['mainLink'] + "history/current-month"} >
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Current month" />
     </ListItem>
-    <ListItem button component="a" href="/">
+    <ListItem button component="a" href={config['mainLink'] + "history/last-quarter"}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Last quarter" />
     </ListItem>
-    <ListItem button component="a" href="/">
+    <ListItem button component="a" href={config['mainLink']+ "history/last-year"}>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
