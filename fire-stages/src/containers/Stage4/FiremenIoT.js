@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { Grid, Typography, Card, Box, makeStyles, CardContent } from "@material-ui/core";
 import YouTube from '@u-wave/react-youtube';
 // firebase API
-import { firebase } from '../config/firebase';
+import { firebase } from '../../config/firebase';
 
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Title from './Title';
+import Title from '../common/Title';
 import { Link } from 'react-router-dom';
 
 import {
@@ -8,7 +8,7 @@ import {
   CardContent, Card
 } from '@material-ui/core';
 
-import firebase from '../config/firebase';
+import firebase from '../../config/firebase';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -106,7 +106,7 @@ export default function IoTInfo() {
       <Grid container spacing={4}>
         {firemenInfo.map(({ name, image, id, rank, role }, index) => (
           <Grid item key={index} xs={12} sm={12} md={6}>
-            <Link to={'/' + id} className={classes.link}>
+            <Link to={'/mission/' + id} className={classes.link}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}

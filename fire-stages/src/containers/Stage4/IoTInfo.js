@@ -7,9 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
-import Title from './Title';
+import Title from '../common/Title';
 
-import firebase from '../config/firebase';
+import firebase from '../../config/firebase';
 
 function preventDefault(event) {
   event.preventDefault();
