@@ -31,6 +31,12 @@ import { firebase, config } from '../../config/firebase';
                 anchor : "bottom",
                 iconURL : "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/64/42545-ambulance-icon.png"
               })
+          } else if (locations[i].type == "congestion") {
+            markers.push({
+                location : locations[i].lat + "," + locations[i].lng,
+                anchor : "center",
+                iconURL : "https://i.imgur.com/okNQgji.png"
+              })
           }
       }
       return markers;
@@ -88,6 +94,14 @@ import { firebase, config } from '../../config/firebase';
                 '37.865935, -122.251351',
                 '37.870545, -122.252582',
             ]}
-        />      </StaticGoogleMap>
+        />      
+        <Path
+            points={[
+                '37.861407, -122.258985',
+                '37.861786, -122.253530',
+            ]}
+            color="red"
+        />      
+      </StaticGoogleMap>
     );
   }
