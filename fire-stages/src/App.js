@@ -8,7 +8,7 @@ import Notify from './containers/Stage2/Stage2';
 import Dispatch from './containers/Stage3/Stage3';
 import FireHome from './containers/Stage4/Stage4';
 import PostAccident from './containers/Stage5/Stage5';
-import FiremenIoT from './containers/Stage4/FiremenIoT';
+import FiremenInfo from './containers/Stage4/FiremenInfo';
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
         <Route path="/notify" exact component={Notify} />
         <Route path="/dispatch" exact component={Dispatch} />
         <Route path="/mission" exact component={FireHome} />
+        <Route path="/mission/command" exact component={FiremenInfo} />
         <Route path="/post" exact component={PostAccident} />
         {/* <Route path="/mission/:id" exact component={FiremenIoT} /> */}
         <Redirect from="/" to="/emergency" />
