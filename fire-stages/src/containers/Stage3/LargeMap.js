@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StaticGoogleMap, Marker } from 'react-static-google-map';
+import { StaticGoogleMap, Marker, Path } from 'react-static-google-map';
 import { firebase, config } from '../../config/firebase';
 
 
@@ -11,19 +11,19 @@ import { firebase, config } from '../../config/firebase';
               markers.push({
                 location : locations[i].lat + "," + locations[i].lng,
                 anchor : "center",
-                iconURL : "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/64/42697-fire-icon.png"
+                iconURL : "http://icons.iconarchive.com/icons/google/noto-emoji-travel-places/48/42697-fire-icon.png"
               })
           } else if (locations[i].type == "firestation") {
             markers.push({
                 location : locations[i].lat + "," + locations[i].lng,
                 anchor: "bottomright",
-                iconURL : "https://www.shareicon.net/data/48x48/2016/07/07/792262_building_512x512.png"
+                iconURL : "https://www.shareicon.net/data/32x32/2016/07/07/792262_building_512x512.png"
               })
           } else if (locations[i].type == "firetruck") {
             markers.push({
                 location : locations[i].lat + "," + locations[i].lng,
-                anchor : "bottom",
-                iconURL : "http://icons.iconarchive.com/icons/icons-land/transport/64/FireTruck-icon.png"
+                anchor : "center",
+                iconURL : "http://icons.iconarchive.com/icons/icons-land/transport/48/FireTruck-icon.png"
               })
           } else if (locations[i].type == "ambulance") {
             markers.push({
@@ -35,6 +35,7 @@ import { firebase, config } from '../../config/firebase';
       }
       return markers;
   }
+
   
   export default function LargeMap() {
     const [alerts, setAlerts] = useState(null);
@@ -42,9 +43,8 @@ import { firebase, config } from '../../config/firebase';
     // messages collection. The second argument
     // with the empty array makes sure the
     // function only executes once
-
     useEffect(() => {
-    listenForAlerts();
+        listenForAlerts();
     }, []);
   
   
@@ -61,12 +61,11 @@ import { firebase, config } from '../../config/firebase';
   
                 // Categorise according to alert type
                 const categorised_alerts = generateMarkers(locations);
-  
                 // Set the collected array as our state
                 setAlerts(categorised_alerts);
             }, (error) => console.error(error));
     };
-  
+
     if (!alerts) {
       return (
           <div>
@@ -78,9 +77,17 @@ import { firebase, config } from '../../config/firebase';
     return (
       <StaticGoogleMap size="640x640" scale="1" className="img-fluid" apiKey={config["apiKey"]}>
         {alerts.map(alert => (
-          <Marker color={alert.color} label={alert.label} location={alert.location} iconURL={alert.iconURL} anchor={alert.anchor}/>
+          <Marker size="tiny" location={alert.location} iconURL={alert.iconURL} anchor={alert.anchor}/>
         ))}
-  
-      </StaticGoogleMap>
+        <Path
+            points={[
+                '37.860362, -122.266963',
+                '37.861407, -122.258985',
+                '37.865138, -122.258433',
+                '37.865705, -122.253913',
+                '37.865935, -122.251351',
+                '37.870545, -122.252582',
+            ]}
+        />      </StaticGoogleMap>
     );
   }
