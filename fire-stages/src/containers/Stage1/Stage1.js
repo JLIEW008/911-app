@@ -6,12 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Map from '../common/Map';
 import FlowBar from '../common/Flow'
 import AppBar from '../common/AppBar';
 import Copyright from '../common/Copyright';
-// firebase API
-import { firebase } from '../../config/firebase';
+import FirestationMap from './FirestationMap';
+import NearbyFirestation from './NearbyFirestation';
+import FireInfo from './FireInfo';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(4),
+    paddingBottom: theme.spacing(1),
   },
   paper: {
     padding: theme.spacing(2),
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    height: '85vh'
+    height: '87vh'
   },
   ioTPaper: {
     padding: theme.spacing(2),
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    height: '20vh'
+    height: '37vh'
   },
   firemenPaper: {
     padding: theme.spacing(2),
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    height: '60vh'
+    height: '45vh'
   },
   fixedHeight: {
     height: 240,
@@ -73,24 +73,21 @@ export default function Emergency() {
             {/* left  - Map */}
             <Grid item xs={12} md={5} lg={6}>
               <Paper className={classes.paper}>
-              <Map/>
+                <FirestationMap/>
               </Paper>
             </Grid>
             <Grid item xs={12} md={5} lg={6}>
             {/* right  - mission details */}
-            
-                <Grid item xs={12}>
-                <Paper className={classes.firemenPaper}>
-                <p><b> *PLACEHOLDER* </b></p>
-                <b>Graph of temperature at fire location</b> 
-                </Paper>  
-                </Grid>
-                <Grid item xs={12}>
-                <Paper className={classes.ioTPaper}>
-                <p><b> *PLACEHOLDER* </b></p>
-                <b>Details of the fire</b> 
-                    </Paper>
-                </Grid>
+            <Grid item xs={12}>
+              <Paper className={classes.firemenPaper}>
+                <FireInfo/>
+              </Paper>  
+            </Grid>
+            <Grid item xs={12}>
+              <Paper className={classes.ioTPaper}>
+                <NearbyFirestation/>
+              </Paper>
+              </Grid>
             </Grid>
           </Grid>
           <Box pt={4}>

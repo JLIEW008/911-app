@@ -10,6 +10,7 @@ import Map from '../common/Map';
 import FlowBar from '../common/Flow';
 import AppBar from '../common/AppBar';
 import Copyright from '../common/Copyright';
+import Assets from './Assets';
 // firebase API
 import { firebase } from '../../config/firebase';
 
@@ -25,23 +26,16 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(4),
+    paddingBottom: theme.spacing(1),
   },
   paper: {
     padding: theme.spacing(2),
     margin: theme.spacing(2),
     display: 'flex',
-    overflow: 'auto',
+    overflow: 'hidden',
     flexDirection: 'column',
-    height: '85vh'
-  },
-  ioTPaper: {
-    padding: theme.spacing(2),
-    margin: theme.spacing(4, 2, 2, 2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-    height: '20vh'
+    flexWrap: 'nowrap',
+    height: '87vh'
   },
   firemenPaper: {
     padding: theme.spacing(2),
@@ -49,16 +43,16 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    height: '60vh'
+    height: '87vh'
   },
   fixedHeight: {
-    height: 240,
+    height: 200,
   },
 }));
 
 export default function Situation() {
   const classes = useStyles();
-
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -72,26 +66,18 @@ export default function Situation() {
         {/* TODO - Write your code here! */}
           <Grid container spacing={3}>
             {/* left  - Map */}
-            <Grid item xs={12} md={5} lg={6}>
+            <Grid item xs={10} md={2} lg={6}>
               <Paper className={classes.paper}>
-                <Map/>
+                <img src={require("./firestation.png")} height="100%"/>
               </Paper>
             </Grid>
             <Grid item xs={12} md={5} lg={6}>
-            {/* right  - mission details */}
-            
-                <Grid item xs={12}>
+              {/* right  - mission details */}
+              <Grid item xs={12}>
                 <Paper className={classes.firemenPaper}>
-                <p><b> *PLACEHOLDER* </b></p>
-                <b> Detailed blueprint of the building</b>
+                  <Assets/>
                 </Paper>  
-                </Grid>
-                <Grid item xs={12}>
-                <Paper className={classes.ioTPaper}>
-                <p><b> *PLACEHOLDER* </b></p>
-                <b> Details of inhabitants to be rescued / task to be done by who</b>
-                    </Paper>
-                </Grid>
+              </Grid>
             </Grid>
           </Grid>
           <Box pt={4}>
