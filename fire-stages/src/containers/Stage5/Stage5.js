@@ -9,6 +9,10 @@ import Paper from '@material-ui/core/Paper';
 import FlowBar from '../common/Flow';
 import AppBar from '../common/AppBar';
 import Copyright from '../common/Copyright';
+import MissionStatistics from './MissionStatistics'
+import AssetsDeployed from './AssetsDeployed'
+import FireMap from './FireMap';
+
 // firebase API
 import { firebase } from '../../config/firebase';
 
@@ -67,26 +71,28 @@ export default function PostAccident() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
         <FlowBar type="5"/>
-        {/* TODO - Write your code here! */}
+          {/* TODO - Write your code here! */}
           <Grid container spacing={3}>
             {/* left  - Map */}
             <Grid item xs={12} md={5} lg={6}>
               <Paper className={classes.paper}>
-              <p><b> *PLACEHOLDER* </b></p>
-                <b> Video / Photos of the accident and mission</b>
+                <FireMap/>
               </Paper>
             </Grid>
             <Grid item xs={12} md={5} lg={6}>
-            {/* right  - mission details */}
-            
-                <Grid item xs={12}>
+              {/* right  - mission details */}
+              <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                <p><b> *PLACEHOLDER* </b></p>
-                <b> Logs of Emergency and actions taken</b>
+                  <MissionStatistics/>
                 </Paper>  
-                </Grid>
+              </Grid>
             </Grid>
           </Grid>
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              <AssetsDeployed/>
+            </Grid>
+          </Container>
           <Box pt={4}>
             <Copyright />
           </Box>

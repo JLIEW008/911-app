@@ -26,6 +26,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+
 export default function Assets() {
   const classes = useStyles();
 
@@ -55,6 +57,26 @@ export default function Assets() {
           }, (error) => console.error(error));
   };
 
+  function postData() {
+    const db = firebase.firestore();
+    db.collection("assets_used").doc("berkeley_fire").set({
+      timestamp: new Date(),
+      AirAmbulance: document.getElementById("Air Ambulance").value,
+      BrushPatrol: document.getElementById("Brush Patrol").value,
+      EMS: document.getElementById("EMS").value,
+      EnginePumper: document.getElementById("Engine/Pumper").value,
+      MedicAmbulance: document.getElementById("Rescue Ambulance").value,
+      Quint: document.getElementById("Quint").value,
+      Rescue: document.getElementById("Rescue").value,
+      Squard: document.getElementById("Squard").value,
+      Tanker: document.getElementById("Tanker").value,
+      TruckLadder: document.getElementById("Truck/Ladder").value
+    }).then(function (docRef) {
+      console.log("Document written with ID: ", docRef);
+    }
+    );
+  }
+
   if (!assets) {
     return (
         <div>
@@ -79,13 +101,13 @@ export default function Assets() {
               <TableCell align="center">{asset.name}</TableCell>
               <TableCell align="center">{asset.val}</TableCell>
               <TableCell padding="checkbox">
-                <TextField type="number" defaultValue={0} InputProps={{ inputProps: { min: 0, max: asset.val } }}/>
+                <TextField type="number" id={asset.name} defaultValue={0} InputProps={{ inputProps: { min: 0, max: asset.val } }}/>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Button variant="contained" color="default" className={classes.button}>
+      <Button variant="contained" color="default" className={classes.button} onClick={postData}>
         Confirm
       </Button>
     </React.Fragment>
