@@ -74,7 +74,7 @@ export default function AlertInfo() {
             Loading...
       </div>
     )
-}
+  }
   return (
     <React.Fragment>
       <Title>Active Alerts</Title>

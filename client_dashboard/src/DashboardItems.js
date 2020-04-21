@@ -17,11 +17,15 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
 import { mainListItems, secondaryListItems } from './listItems';
 import { ChatFeed, Message } from 'react-chat-ui';
 import { StaticGoogleMap, Marker } from 'react-static-google-map';
 import AlertInfo from './AlertInfo';
 import Map from './Map';
+import { firebase, config } from './config/firebase';
+import { getTime, getDate } from './Util.js'
 
 function Copyright() {
   return (
@@ -52,6 +56,10 @@ const useStyles = makeStyles(theme => ({
   },
   fixedHeight: {
     height: 240,
+  },
+  alert: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   }
 }));
 
@@ -65,10 +73,74 @@ export default function DashboardItems() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  
+  const [alerts, setAlerts] = useState(null);
+  
+  useEffect(() => {
+    listenForAlerts();
+  }, []);
+
+
+  // Use firestore to listen for changes within
+  // our newly created collection
+  const listenForAlerts = () => {
+    firebase.firestore().collection('iot_updates')
+        .onSnapshot((snapshot) => {
+            // Loop through the snapshot and collect
+            // the necessary info we need. Then push
+            // it into our array
+            const allAlerts = [];
+            snapshot.forEach((doc) => allAlerts.push(doc.data()));
+            
+            const recentAlerts = [];
+            let currentTime = new Date();
+            
+            let j = 0
+            for (let i = 0; i < allAlerts.length; ++i) {
+              var data = allAlerts[i];
+              let t = new Date(1970, 0, 1); // Epoch
+              t.setSeconds(data.timestamp.seconds);
+              if (data.timestamp.seconds > currentTime.getTime()/1000 - 10) {
+                // Adds only if is in the last 10 seconds
+                recentAlerts.push(data)
+                recentAlerts[j].time = getTime(t);
+                recentAlerts[j].date = getDate(t);
+                recentAlerts[j].t = t;
+                j++;
+              }
+            }
+
+            // Set the collected array as our state
+            setAlerts(recentAlerts);
+        }, (error) => console.error(error));
+      };
+
+  if (!alerts) {
+    return (
+      <div>
+        Loading...
+      </div>
+    )
+  }
+  
 
   return (
     <main className={classes.content}>
       <Container maxWidth="lg" className={classes.container}>
+        {alerts.map(alert => (
+          <Alert className={classes.alert} severity="warning"
+            action={
+              <a href={"https://innoveng-8d787.web.app/" + alert.stage}>
+                <Button color="inherit" size="small">
+                  GO
+                </Button>
+              </a>
+              
+            }
+          >
+            New alert triggered - {alert.type} at {alert.location}!
+          </Alert>
+        ))}
         <Grid container spacing={3}>
           {/* left  - Map */}
           <Grid item xs={12} md={5} lg={6}>
