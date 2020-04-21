@@ -138,7 +138,7 @@ export default function DashboardItems() {
               
             }
           >
-            Alert! {alert.type} at {alert.location}!
+            New alert triggered - {alert.type} at {alert.location}!
           </Alert>
         ))}
         <Grid container spacing={3}>
