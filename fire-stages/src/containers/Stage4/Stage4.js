@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 import RescueInfo from './RescueInfo';
+import Map from './Map';
 import FlowBar from '../common/Flow';
 import AppBar from '../common/AppBar';
 import Command from './Command';
@@ -73,7 +74,7 @@ export default function FireHome() {
             {/* left  - Map */}
             <Grid item xs={12} md={5} lg={6}>
               <Paper className={classes.paper}>
-                <img src="https://previews.123rf.com/images/andrejco/andrejco1302/andrejco130200146/18444064-blueprint-of-foodbal-soccer-stadium.jpg" height="450" width="550" />
+                <Map/>
               </Paper>
             </Grid>
             <Grid item xs={12} md={5} lg={6}>
