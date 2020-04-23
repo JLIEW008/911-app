@@ -101,7 +101,7 @@ export default function Assets() {
               <TableCell align="center">{asset.name}</TableCell>
               <TableCell align="center">{asset.val}</TableCell>
               <TableCell padding="checkbox">
-                <TextField type="number" id={asset.name} defaultValue={0} InputProps={{ inputProps: { min: 0, max: asset.val } }}/>
+                <TextField type="number" id={asset.name} defaultValue={parseInt(asset.val / 2)} InputProps={{ inputProps: { min: 0, max: asset.val } }}/>
               </TableCell>
             </TableRow>
           ))}
