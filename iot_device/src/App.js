@@ -44,8 +44,9 @@ function App() {
   let address = "";
 
   const handleClick = () => {
-    type = document.getElementById("type").value;
-    getLocation();
+    //type = document.getElementById("type").value;
+    //getLocation();
+    post();
   }
 
   function getLocation() {
@@ -79,10 +80,9 @@ function App() {
     db.collection("iot_updates").add({
       timestamp: new Date(),
       location: "Cal Memorial Stadium, Berkeley, CA",
-      type: type,
-      lat: latitude,
-      lng: longitude,
-      location: address,
+      type: "Fire",
+      lat: "37.870958",
+      lng: "-122.250736",
       stage: "emergency"
     }).then(function (docRef) {
       console.log("Document written with ID: ", docRef.id);
@@ -92,15 +92,8 @@ function App() {
 
   return (
     <div className="App">
-      <label for="type">Emergency Type: </label>
-      <select id="type">
-        <option value="Fire">Fire</option>
-        <option value="Chemical Spill">Chemical Spill</option>
-        <option value="Accident">Accident</option>
-=      </select>
       <br></br>
-      <br></br>
-      <Button variant="primary" onClick={handleClick}>Alert</Button>
+      <Button variant="primary" onClick={handleClick}>Emergency Detected</Button>
     </div>
   );
 }
