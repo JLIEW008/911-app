@@ -24,7 +24,7 @@ function postPeriodicData(deviceid) {
   );
 }
 
-setInterval(postPeriodicData, 1000);
+//setInterval(postPeriodicData, 1000);
 
 function App() {
   const deviceid = 'LDaic41udagJ3E15wTIC'
