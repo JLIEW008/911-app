@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import TablePagination from '@material-ui/core/TablePagination';
+import Button from '@material-ui/core/Button';
 import Title from '../common/Title';
 
 import firebase from '../../config/firebase';
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
 const useStyles = makeStyles(theme => ({
-  seeMore: {
-    marginTop: theme.spacing(1),
+  button: {
+    margin: theme.spacing(2), 
+    width: '90%',
+    justifyContent: 'center'
+  },
+  link: {
+    textDecoration: "none",
+    color: 'inherit'
   },
 }));
 
-export default function IoTInfo() {
+export default function Command() {
   const classes = useStyles();
 
   const [alerts, setAlerts] = useState(null);
@@ -59,7 +61,7 @@ export default function IoTInfo() {
 }
   return (
     <React.Fragment>
-      <Title>Mission Alerts</Title>
+      <Title>Mission Command Center</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -82,6 +84,11 @@ export default function IoTInfo() {
           ))}
         </TableBody>
       </Table>
+      <Link to={'/mission/command'} className={classes.link}>
+      <Button variant="contained" color="default" className={classes.button}>
+        COMMAND CENTER
+        </Button>
+      </Link>
     </React.Fragment>
   );
 }

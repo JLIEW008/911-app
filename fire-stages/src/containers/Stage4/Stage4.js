@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
@@ -8,15 +7,14 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-import IoTInfo from './IoTInfo';
-import FiremenInfo from './FiremenInfo';
-import Map from '../common/Map';
+import RescueInfo from './RescueInfo';
+import Map from './Map';
 import FlowBar from '../common/Flow';
 import AppBar from '../common/AppBar';
+import Command from './Command';
 import Copyright from '../common/Copyright';
 // firebase API
 import { firebase } from '../../config/firebase';
-import { red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    height: '85vh'
+    height: '74vh'
   },
   ioTPaper: {
     padding: theme.spacing(2),
@@ -46,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    height: '20vh'
+    height: '30vh'
   },
   firemenPaper: {
     padding: theme.spacing(2),
@@ -54,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    height: '60vh'
+    height: '40vh'
   },
   fixedHeight: {
     height: 240,
@@ -67,11 +65,11 @@ export default function FireHome() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar name="Mission"/>
+      <AppBar name="Mission" />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-        <FlowBar type="4"/>
+          <FlowBar type="4" />
           <Grid container spacing={3}>
             {/* left  - Map */}
             <Grid item xs={12} md={5} lg={6}>
@@ -80,18 +78,19 @@ export default function FireHome() {
               </Paper>
             </Grid>
             <Grid item xs={12} md={5} lg={6}>
-            {/* right  - mission details */}
-            
-                <Grid item xs={12}>
+              {/* right  - mission details */}
+
+              <Grid item xs={12}>
                 <Paper className={classes.firemenPaper}>
-                    <FiremenInfo/>  
-                </Paper>  
-                </Grid>
-                <Grid item xs={12}>
+                  <RescueInfo />
+                  
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
                 <Paper className={classes.ioTPaper}>
-                    <IoTInfo/> 
-                    </Paper>
-                </Grid>
+                  <Command/>
+                </Paper>
+              </Grid>
             </Grid>
           </Grid>
           <Box pt={4}>

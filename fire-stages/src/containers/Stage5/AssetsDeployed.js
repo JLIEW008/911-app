@@ -27,7 +27,6 @@ const useStyles = makeStyles(theme => ({
 export default function MissionStats() {
   const classes = useStyles();
 
-  const [missionStats, setMissionStats] = useState(null);
   
   const [firefightingAssets, setFirefightingAssets] = useState(null);
   // Initialize with listening to our
@@ -35,26 +34,9 @@ export default function MissionStats() {
     // with the empty array makes sure the
     // function only executes once
   useEffect(() => {
-      listenForMissionStats();
       getFirefightingAssets();
   }, []);
 
-
-  // Use firestore to listen for changes within
-  // our newly created collection
-  const listenForMissionStats = () => {
-      firebase.firestore().collection('mission_stats')
-          .onSnapshot((snapshot) => {
-              // Loop through the snapshot and collect
-              // the necessary info we need. Then push
-              // it into our array
-              const allMissionStats = [];
-              snapshot.forEach((doc) => allMissionStats.push(doc.data()));
-              
-              // Set the collected array as our state
-              setMissionStats(allMissionStats);
-          }, (error) => console.error(error));
-  };
   
   //var unsubscribe = firebase.firestore().collection('firefighting_assets').onSnapshot((snapshot) => {
   //  const firefightingAssets = [];
@@ -74,7 +56,7 @@ export default function MissionStats() {
   }
  
   
-  if (!missionStats || !firefightingAssets) {
+  if (!firefightingAssets) {
     return (
         <div>
             Loading...
@@ -82,7 +64,6 @@ export default function MissionStats() {
     )
   }
   
-  console.log(firefightingAssets['MedicAmbulance']);
   return (
     <React.Fragment>
       <Title>Assets Deployed</Title>

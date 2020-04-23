@@ -98,11 +98,10 @@ export default function AlertInfo() {
   }
   return (
     <React.Fragment>
-      <Title>Nearby Firestations</Title>
+      <Title>Firestations Activated</Title>
       <Table size="small" aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell padding="checkbox"></TableCell>
             <TableCell>Location</TableCell>
             <TableCell align='center'>Distance / km</TableCell>
             <TableCell align='center'>Time to Arrival</TableCell>
@@ -111,9 +110,6 @@ export default function AlertInfo() {
         <TableBody>
           {alerts.map(alert => (
             <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox color="default" />
-              </TableCell>
               <TableCell>{alert.location}</TableCell>
               <TableCell align="center">{alert.distance}</TableCell>
               <TableCell align="center">{alert.time}</TableCell>
@@ -121,9 +117,6 @@ export default function AlertInfo() {
           ))}
         </TableBody>
       </Table>
-      <Button variant="contained" color="default" className={classes.button}>
-        Alert
-      </Button>
     </React.Fragment>
   );
 }
