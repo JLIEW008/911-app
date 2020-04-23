@@ -24,6 +24,7 @@ function App() {
         <Route path="/post" exact component={PostAccident} />
         {/* <Route path="/mission/:id" exact component={FiremenIoT} /> */}
         <Redirect from="/" to="/emergency" />
+        <Redirect from="/Post Accident" to="/emergency" />
         {/* <Route path="/adventures" exact component={Adventures} />
         <Route path="/login" exact component={LogIn} /> */}
       </Switch>

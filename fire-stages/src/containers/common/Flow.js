@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import Stepper from '@material-ui/core/Stepper';
@@ -12,6 +13,12 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 
+const useStyles = makeStyles(theme => ({
+  link: {
+    textDecoration: "none",
+    color: 'inherit'
+  },
+}));
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
@@ -28,12 +35,6 @@ const ColorlibConnector = withStyles({
         backgroundImage:
           'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
       },
-    },
-    line: {
-      height: 3,
-      border: 0,
-      backgroundColor: '#eaeaf0',
-      borderRadius: 1,
     },
   })(StepConnector);
   
@@ -57,6 +58,10 @@ const ColorlibConnector = withStyles({
     completed: {
       backgroundImage:
         'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+    },
+    link: {
+      textDecoration: "none",
+      color: 'inherit'
     },
   });
   
@@ -106,11 +111,17 @@ const ColorlibConnector = withStyles({
 
   export default function FireHome(props) {
     const steps = getSteps();
+    const classes = useStyles();
     return(
     <Stepper alternativeLabel activeStep={props.type} connector={<ColorlibConnector />}>
         {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+          <Step key={label}>   
+            <StepLabel StepIconComponent={ColorlibStepIcon}>
+
+            <Link to={'/' + label.split(" ")[0]} className={classes.link}>{label}
+            </Link>
+            </StepLabel>
+            
           </Step>
         ))}
       </Stepper>

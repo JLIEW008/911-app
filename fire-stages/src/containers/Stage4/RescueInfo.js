@@ -65,7 +65,7 @@ export default function RescueInfo() {
         </TableHead>
         <TableBody>
           {alerts.map(alert => (
-            <TableRow key={alert.id}>
+            <TableRow key={alert.label}>
               <TableCell align="center">{alert.label}</TableCell>
               <TableCell align="center">{alert.location}</TableCell>
               <TableCell align="center">{alert.injuries}</TableCell>
