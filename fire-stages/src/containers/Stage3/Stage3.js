@@ -11,6 +11,7 @@ import LargeMap from './LargeMap';
 import FlowBar from '../common/Flow';
 import AppBar from '../common/AppBar';
 import Copyright from '../common/Copyright';
+import AssetsDeployed from '../Stage5/AssetsDeployed'
 // firebase API
 import { firebase } from '../../config/firebase';
 
@@ -85,7 +86,7 @@ export default function Dispatch() {
             {/* right  - mission details */}
             <Grid item xs={12} md={5} lg={4}>
                 <Paper className={classes.paper}>
-                    <b>List of assets deployed</b>
+                    <AssetsDeployed/>
                 </Paper>
             </Grid>
           </Grid>

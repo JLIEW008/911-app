@@ -28,6 +28,32 @@ function App() {
   let report = "";
   const db = firebase.firestore();
 
+  const sendLocation = () => {
+    postFiretruckLocation(37.860362, -122.266963);
+    setTimeout(() => postFiretruckLocation(37.860684, -122.264522), 2000);
+    setTimeout(() => postFiretruckLocation(37.860989, -122.262256), 4000);    
+    setTimeout(() => postFiretruckLocation(37.861407, -122.258985), 6000);
+    setTimeout(() => postFiretruckLocation(37.863272, -122.258685), 8000);
+    setTimeout(() => postFiretruckLocation(37.865138, -122.258433), 10000);
+    setTimeout(() => postFiretruckLocation(37.865380, -122.256367), 12000);
+    setTimeout(() => postFiretruckLocation(37.865705, -122.253913), 14000);
+    setTimeout(() => postFiretruckLocation(37.865935, -122.251351), 16000);
+    setTimeout(() => postFiretruckLocation(37.867791, -122.251915), 18000);
+    setTimeout(() => postFiretruckLocation(37.869165, -122.252219), 20000);
+    setTimeout(() => postFiretruckLocation(37.870545, -122.252582), 22000);
+  }
+
+  function postFiretruckLocation(lat, lng) {
+    db.collection("stage3_locations").doc("firetruck").set({
+      type: "firetruck",
+      lat: lat,
+      lng: lng
+    }).then(function (docRef) {
+      console.log("Document written with ID: ");
+    }
+    );
+  }
+
   const handleClick = () => {
     hrate = document.getElementById("hrate").value;
     btemp = document.getElementById("btemp").value;
@@ -93,6 +119,13 @@ function App() {
 
   return (
     <div className="App">
+        <center>Firefighter Mock Device - Dispatch Updates</center><br></br>
+        <Button variant="primary" onClick={sendLocation}>Live Location Updates</Button>
+        <br></br><br></br>
+        <hr></hr>
+
+
+
         <center>Firefighter Mock Device - Situation Evaluation</center><br></br>
         <label for="pid">Personnel: </label>
         <select id="pid">

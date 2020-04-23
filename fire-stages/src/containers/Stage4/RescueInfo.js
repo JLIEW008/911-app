@@ -1,28 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import TablePagination from '@material-ui/core/TablePagination';
 import Title from '../common/Title';
 
 import firebase from '../../config/firebase';
 
-function preventDefault(event) {
-  event.preventDefault();
-}
+// const useStyles = makeStyles(theme => ({
+//   seeMore: {
+//     marginTop: theme.spacing(1),
+//   },
+// }));
 
-const useStyles = makeStyles(theme => ({
-  seeMore: {
-    marginTop: theme.spacing(1),
-  },
-}));
-
-export default function IoTInfo() {
-  const classes = useStyles();
+export default function RescueInfo() {
+  // const classes = useStyles();
 
   const [alerts, setAlerts] = useState(null);
   // Initialize with listening to our
@@ -37,7 +31,7 @@ export default function IoTInfo() {
   // Use firestore to listen for changes within
   // our newly created collection
   const listenForAlerts = () => {
-      firebase.firestore().collection('mission_alerts')
+      firebase.firestore().collection('rescue')
           .onSnapshot((snapshot) => {
               // Loop through the snapshot and collect
               // the necessary info we need. Then push
@@ -59,25 +53,23 @@ export default function IoTInfo() {
 }
   return (
     <React.Fragment>
-      <Title>Mission Alerts</Title>
+      <Title>Rescue Information</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
-          <TableCell align="center">Progress</TableCell>
-            <TableCell align="center">Mission Time</TableCell>
-            <TableCell align="center">Temperature</TableCell>
-            <TableCell align="center">Crew</TableCell>
-            <TableCell align="center">Vehicles</TableCell>
+          <TableCell align="center">Label</TableCell>
+            <TableCell align="center">Location</TableCell>
+            <TableCell align="center">Injuries</TableCell>
+            <TableCell align="center">Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {alerts.map(alert => (
             <TableRow key={alert.id}>
-              <TableCell align="center">{alert.progress}</TableCell>
-              <TableCell align="center">{alert.time}</TableCell>
-              <TableCell align="center">{alert.temperature}</TableCell>
-              <TableCell align="center">{alert.crew}</TableCell>
-              <TableCell align="center">{alert.vehicle}</TableCell>
+              <TableCell align="center">{alert.label}</TableCell>
+              <TableCell align="center">{alert.location}</TableCell>
+              <TableCell align="center">{alert.injuries}</TableCell>
+              <TableCell align="center">{alert.status}</TableCell>
             </TableRow>
           ))}
         </TableBody>
