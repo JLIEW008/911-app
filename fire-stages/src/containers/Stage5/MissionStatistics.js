@@ -29,32 +29,13 @@ export default function MissionStats() {
 
   const [missionStats, setMissionStats] = useState(null);
   
-  const [firefightingAssets, setFirefightingAssets] = useState(null);
   // Initialize with listening to our
     // messages collection. The second argument
     // with the empty array makes sure the
     // function only executes once
   useEffect(() => {
-      listenForMissionStats();
-      getFirefightingAssets();
+      getMissionStats();
   }, []);
-
-
-  // Use firestore to listen for changes within
-  // our newly created collection
-  const listenForMissionStats = () => {
-      firebase.firestore().collection('mission_stats')
-          .onSnapshot((snapshot) => {
-              // Loop through the snapshot and collect
-              // the necessary info we need. Then push
-              // it into our array
-              const allMissionStats = [];
-              snapshot.forEach((doc) => allMissionStats.push(doc.data()));
-              
-              // Set the collected array as our state
-              setMissionStats(allMissionStats);
-          }, (error) => console.error(error));
-  };
   
   //var unsubscribe = firebase.firestore().collection('firefighting_assets').onSnapshot((snapshot) => {
   //  const firefightingAssets = [];
@@ -62,16 +43,27 @@ export default function MissionStats() {
   //  setFirefightingAssets(firefightingAssets);
   //});
   
-  const getFirefightingAssets = () => {
-    firebase.firestore().collection('assets_used').where(firebase.firestore.FieldPath.documentId(), "==", "berkeley_fire").get().then((snapshot) => {
+  const getMissionStats = () => {
+    firebase.firestore().collection('mission_stats').where(firebase.firestore.FieldPath.documentId(), "==", "berkeley_fire").get().then((snapshot) => {
       const firefightingAssets = [];
       snapshot.forEach((doc) => firefightingAssets.push(doc.data()));
-      setFirefightingAssets(firefightingAssets);
+      
+      var items = Object.keys(firefightingAssets[0]).map(function(key) {
+        return [key, firefightingAssets[0][key]];
+      });
+      
+      items.sort(function(a, b) {
+        if(a[0] < b[0]) { return -1; }
+        if(a[0] > b[0]) { return 1; }
+        return 0;
+      });
+      
+      setMissionStats(items);
     });
   }
- 
-  console.log(firefightingAssets);
-  if (!missionStats || !firefightingAssets) {
+  
+  console.log(missionStats);
+  if (!missionStats) {
     return (
         <div>
             Loading...
@@ -83,10 +75,10 @@ export default function MissionStats() {
       <Title>Fire Overview</Title>
       <Table size="small">
         <TableBody>
-          {missionStats.map(stat => (
+          {missionStats.map((stat) => (
             <TableRow>
-              <TableCell scope="row">{stat}</TableCell>
-              <TableCell align='center'>{stat.val}</TableCell>
+              <TableCell scope="row">{stat[0]}</TableCell>
+              <TableCell align='center'>{stat[1]}</TableCell>
             </TableRow>
           ))}
         </TableBody>
