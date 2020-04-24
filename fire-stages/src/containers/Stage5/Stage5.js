@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    height: '85vh'
+    height: '65vh'
   },
   ioTPaper: {
     padding: theme.spacing(2),

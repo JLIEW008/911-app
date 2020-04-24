@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     flexDirection: 'column',
     flexWrap: 'nowrap',
-    height: '87vh'
+    height: '74vh'
   },
   firemenPaper: {
     padding: theme.spacing(2),
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    height: '87vh'
+    height: '74vh'
   },
   fixedHeight: {
     height: 200,

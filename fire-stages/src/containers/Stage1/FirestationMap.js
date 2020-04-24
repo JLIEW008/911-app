@@ -65,7 +65,7 @@ export default function Map() {
   }
 
   return (
-    <StaticGoogleMap size="450x450" className="img-fluid" apiKey={config["apiKey"]}>
+    <StaticGoogleMap size="400x500" className="img-fluid" apiKey={config["apiKey"]}>
       {alerts.map(alert => (
         <Marker color={alert.color} label={alert.label} location={alert.location} />
       ))}

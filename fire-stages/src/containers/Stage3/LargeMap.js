@@ -81,7 +81,7 @@ import { firebase, config } from '../../config/firebase';
     }
   
     return (
-      <StaticGoogleMap size="640x640" scale="1" className="img-fluid" apiKey={config["apiKey"]}>
+      <StaticGoogleMap size="640x600" scale="1" className="img-fluid" apiKey={config["apiKey"]}>
         {alerts.map(alert => (
           <Marker size="tiny" location={alert.location} iconURL={alert.iconURL} anchor={alert.anchor}/>
         ))}
